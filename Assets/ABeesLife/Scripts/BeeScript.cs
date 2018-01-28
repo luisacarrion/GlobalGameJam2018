@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BeeScript : MonoBehaviour {
 
@@ -8,6 +9,11 @@ public class BeeScript : MonoBehaviour {
     public RadialProgressBar pollenRadialProgressBar;
     public RadialProgressBar bellyRadialProgressBar;
     public RadialProgressBar flyingEnergyRadialProgressBar;
+
+	public GameObject uiDie;
+	public Text txtDie;
+
+	public string dieOnGroundMessage = "Fuiste devorado por una araña gigantesca :(";
 
     private float nectarMeter;
     private float pollenMeter;
@@ -19,6 +25,9 @@ public class BeeScript : MonoBehaviour {
     private float flyingEnergyIncrease = 0.8F;
     private float bellyDecrease = -0.0833333F; //(100 / (20 * 60))
 
+	private int pollinatedFlowersCounter = 0;
+
+
     // Use this for initialization
     void Start () {
 
@@ -26,31 +35,43 @@ public class BeeScript : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        bellyRadialProgressBar.UpdateAmount(bellyDecrease * Time.deltaTime);
+        //bellyRadialProgressBar.UpdateAmount(bellyDecrease * Time.deltaTime);
 
 		if (Input.GetButtonDown("Jump")) {
-            flyingEnergyRadialProgressBar.UpdateAmount(flyingEnergyDecrease);
+            //flyingEnergyRadialProgressBar.UpdateAmount(flyingEnergyDecrease);
         } 
-        else if (flyingEnergyRadialProgressBar.GetCurrentAmount() < 100) {
-            Debug.Log(flyingEnergyIncrease * Time.deltaTime);
-            flyingEnergyRadialProgressBar.UpdateAmount(flyingEnergyIncrease * Time.deltaTime);
-        }
+        //else if (flyingEnergyRadialProgressBar.GetCurrentAmount() < 100) {
+          //  Debug.Log(flyingEnergyIncrease * Time.deltaTime);
+            //flyingEnergyRadialProgressBar.UpdateAmount(flyingEnergyIncrease * Time.deltaTime);
+        //}
+	}
+
+	void Die() {
+		
+	}
+
+	void ShowEndScreen(string message) {
+		txtDie.text = message;
+		txtDie.text += "\n\nPero polinizaste " + pollinatedFlowersCounter + " flores!\n\nY aquí hay unas lindas fotos de los lugares que visitaste";
+		uiDie.SetActive (true);
 	}
 
 	void OnTriggerEnter(Collider other) {
+		Debug.Log ("Trigger with: " + other.tag);
+
 		if (other.CompareTag ("Nectar")) {
 			FlowerScript flowerScript = other.GetComponent<FlowerScript> ();
 			if (flowerScript != null) {
 				flowerScript.takeNectar ();
 				nectarMeter += nectarIncrease;
-                nectarRadialProgressBar.UpdateAmount(nectarIncrease);
+                //nectarRadialProgressBar.UpdateAmount(nectarIncrease);
 
 				if (flowerScript.hasPollen ()) {
 					pollenMeter += pollenIncrease;
-                    pollenRadialProgressBar.UpdateAmount(pollenIncrease);
+                    //pollenRadialProgressBar.UpdateAmount(pollenIncrease);
 				} else {
 					pollenMeter -= pollenIncrease;
-                    pollenRadialProgressBar.UpdateAmount(-pollenIncrease);
+                    //pollenRadialProgressBar.UpdateAmount(-pollenIncrease);
 				}
 				Debug.Log ("Belly: " + bellyMeter);
 				Debug.Log ("Nectar: " + nectarMeter);
@@ -59,13 +80,11 @@ public class BeeScript : MonoBehaviour {
             else {
 				Debug.Log ("FlowerScript not set to object with Nectar tag");
 			}
-		}
-	}
-
-	void OnCollisionEnter(Collision collision)
-	{
-		if (collision.gameObject.CompareTag ("Respawn")) {
-			// Fill belly to 100%
+		} else if (other.CompareTag ("Respawn")) {
+			// ROGELIO: Fill belly to 100%
+		} else if (other.CompareTag ("Ground")) {
+			Die ();
+			ShowEndScreen (dieOnGroundMessage);
 		}
 	}
 }
