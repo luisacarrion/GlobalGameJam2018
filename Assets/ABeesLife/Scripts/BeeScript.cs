@@ -19,6 +19,10 @@ public class BeeScript : MonoBehaviour {
 
 	public string dieOnGroundMessage = "Fuiste devorado por una araña gigantesca :(";
 
+    [SerializeField] private AudioSource worldAudioSource;
+    [SerializeField] private AudioClip newWorldSound;  // the sound played when character spawns
+    [SerializeField] private AudioClip deathSound;  // the sound played when character touches the ground
+
     private float nectarMeter;
     private float pollenMeter;
     private float bellyMeter;
@@ -36,11 +40,13 @@ public class BeeScript : MonoBehaviour {
 	private bool pic02Seen = false;
 	private bool pic03Seen = false;
 
+    
 
     // Use this for initialization
     void Start () {
 		txtPollinatedFlowersCounter.text = "" + pollinatedFlowersCounter;
-	}
+        PlayNewWorldSound();
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -57,12 +63,22 @@ public class BeeScript : MonoBehaviour {
 		}
 	}
 
-	void Die() {
+    void PlayNewWorldSound() {
+        worldAudioSource.clip = newWorldSound;
+        worldAudioSource.Play();
+    }
+
+    void PlayDeathSound() {
+        worldAudioSource.clip = deathSound;
+        worldAudioSource.Play();
+    }
+
+    void Die() {
 		isAlive = false;
 	}
 
 	void ShowEndScreen(string message) {
-		txtDie.text = message;
+        txtDie.text = message;
 		txtDie.text += "\n\nPero polinizaste " + pollinatedFlowersCounter + " flores!\n\nY aquí hay unas lindas fotos de los lugares que visitaste";
 		uiDie.SetActive (true);
 
@@ -110,7 +126,8 @@ public class BeeScript : MonoBehaviour {
 				// ROGELIO: Fill belly to 100%
 			} else if (other.CompareTag ("Ground")) {
 				Die ();
-				ShowEndScreen (dieOnGroundMessage);
+                PlayDeathSound ();
+                ShowEndScreen (dieOnGroundMessage);
 			} else if (other.CompareTag ("Pic02")) {
 				pic02Seen = true;
 			} else if (other.CompareTag ("Pic03")) {
