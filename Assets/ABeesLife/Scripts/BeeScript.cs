@@ -90,6 +90,14 @@ public class BeeScript : MonoBehaviour {
 		}
 
 		uiDie.SetActive (true);
+
+		if (pic01Seen) {
+			//uiPic01.SetActive (true);
+		} else if (pic02Seen) {
+			uiPic02.SetActive (true);
+		} else if (pic03Seen) {
+			uiPic03.SetActive (true);
+		}
 	}
 
 	void OnTriggerEnter(Collider other) {
