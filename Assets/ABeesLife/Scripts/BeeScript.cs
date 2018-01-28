@@ -31,10 +31,13 @@ public class BeeScript : MonoBehaviour {
 		if (other.CompareTag ("Nectar")) {
 			FlowerScript flowerScript = other.GetComponent<FlowerScript> ();
 			if (flowerScript != null) {
-				if (flowerScript.hasNectar ()) {
-					flowerScript.takeNectar ();
-					nectarMeter += nectarIncrease;
+				flowerScript.takeNectar ();
+				nectarMeter += nectarIncrease;
+
+				if (flowerScript.hasPollen ()) {
 					pollenMeter += pollenIncrease;
+				} else {
+					pollenMeter -= pollenIncrease;
 				}
 				Debug.Log ("Belly: " + bellyMeter);
 				Debug.Log ("Nectar: " + nectarMeter);

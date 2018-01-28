@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class FlowerScript : MonoBehaviour {
 
-	private bool nectarPresent = true;
+	public bool pollenPresent = true;
 
 	// Use this for initialization
 	void Start () {
@@ -16,12 +16,11 @@ public class FlowerScript : MonoBehaviour {
 		
 	}
 
-	public bool hasNectar() {
-		return nectarPresent;
+	public bool hasPollen() {
+		return pollenPresent;
 	}
 
 	public void takeNectar() {
-		nectarPresent = false;
-		Destroy (transform.parent.gameObject);
+		Destroy (gameObject);
 	}
 }
