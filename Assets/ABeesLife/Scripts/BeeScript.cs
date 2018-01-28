@@ -13,7 +13,7 @@ public class BeeScript : MonoBehaviour {
 	public GameObject uiDie;
 	public Text txtDie;
 	public Text txtPollinatedFlowersCounter;
-	public GameObject uiPic01;
+	//public GameObject uiPic01;
 	public GameObject uiPic02;
 	public GameObject uiPic03;
 
@@ -37,8 +37,8 @@ public class BeeScript : MonoBehaviour {
 	private bool isAlive = true;
 
 	private bool pic01Seen = true;
-	private bool pic02Seen = false;
-	private bool pic03Seen = false;
+	private bool pic02Seen = true;
+	private bool pic03Seen = true;
 
     
 
@@ -80,19 +80,20 @@ public class BeeScript : MonoBehaviour {
 	void ShowEndScreen(string message) {
         txtDie.text = message;
 		txtDie.text += "\n\nPero polinizaste " + pollinatedFlowersCounter + " flores!\n\nY aquí hay unas lindas fotos de los lugares que visitaste";
-		uiDie.SetActive (true);
 
 		if (pic01Seen) {
-			uiPic01.SetActive (true);
+			//uiPic01.SetActive (true);
 		} else if (pic02Seen) {
 			uiPic02.SetActive (true);
 		} else if (pic03Seen) {
 			uiPic03.SetActive (true);
 		}
+
+		uiDie.SetActive (true);
 	}
 
 	void OnTriggerEnter(Collider other) {
-		//Debug.Log ("Trigger with: " + other.tag);
+		Debug.Log ("Trigger with: " + other.tag);
 
 		if (isAlive) {
 			if (other.CompareTag ("Nectar")) {
@@ -129,8 +130,10 @@ public class BeeScript : MonoBehaviour {
                 PlayDeathSound ();
                 ShowEndScreen (dieOnGroundMessage);
 			} else if (other.CompareTag ("Pic02")) {
+				Debug.Log ("PIC02");
 				pic02Seen = true;
 			} else if (other.CompareTag ("Pic03")) {
+				Debug.Log ("PIC03");
 				pic03Seen = true;
 			} 
 		}
