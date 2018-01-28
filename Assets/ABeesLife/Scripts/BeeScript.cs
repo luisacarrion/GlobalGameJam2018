@@ -61,4 +61,11 @@ public class BeeScript : MonoBehaviour {
 			}
 		}
 	}
+
+	void OnCollisionEnter(Collision collision)
+	{
+		if (collision.gameObject.CompareTag ("Respawn")) {
+			// Fill belly to 100%
+		}
+	}
 }
