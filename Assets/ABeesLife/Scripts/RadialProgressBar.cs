@@ -8,10 +8,11 @@ public class RadialProgressBar : MonoBehaviour {
     public Transform ChargingBar;
     public Transform TextIndicator;
     [SerializeField] private float currentAmount;
+    private float initialAmount;
 
     // Use this for initialization
     void Start () {
-		
+        initialAmount = currentAmount;
 	}
 	
 	// Update is called once per frame
@@ -30,6 +31,6 @@ public class RadialProgressBar : MonoBehaviour {
     }
 
     public void ResetAmount() {
-
+        currentAmount = initialAmount;
     }
 }
