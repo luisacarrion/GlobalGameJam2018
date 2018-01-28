@@ -22,5 +22,6 @@ public class FlowerScript : MonoBehaviour {
 
 	public void takeNectar() {
 		nectarPresent = false;
+		Destroy (transform.parent.gameObject);
 	}
 }
