@@ -12,6 +12,7 @@ public class BeeScript : MonoBehaviour {
 
 	public GameObject uiDie;
 	public Text txtDie;
+	public Text txtPollinatedFlowersCounter;
 
 	public string dieOnGroundMessage = "Fuiste devorado por una araña gigantesca :(";
 
@@ -75,6 +76,7 @@ public class BeeScript : MonoBehaviour {
 					if (pollenRadialProgressBar.GetCurrentAmount () > 0) {
 						pollenRadialProgressBar.UpdateAmount(-pollenIncrease);
 						pollinatedFlowersCounter++;
+						txtPollinatedFlowersCounter.text = pollinatedFlowersCounter;
 					}
                     
 				}
