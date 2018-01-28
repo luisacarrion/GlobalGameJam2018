@@ -35,15 +35,15 @@ public class BeeScript : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        //bellyRadialProgressBar.UpdateAmount(bellyDecrease * Time.deltaTime);
+        bellyRadialProgressBar.UpdateAmount(bellyDecrease * Time.deltaTime);
 
 		if (Input.GetButtonDown("Jump")) {
-            //flyingEnergyRadialProgressBar.UpdateAmount(flyingEnergyDecrease);
+            flyingEnergyRadialProgressBar.UpdateAmount(flyingEnergyDecrease);
         } 
-        //else if (flyingEnergyRadialProgressBar.GetCurrentAmount() < 100) {
-          //  Debug.Log(flyingEnergyIncrease * Time.deltaTime);
-            //flyingEnergyRadialProgressBar.UpdateAmount(flyingEnergyIncrease * Time.deltaTime);
-        //}
+        else if (flyingEnergyRadialProgressBar.GetCurrentAmount() < 100) {
+            Debug.Log(flyingEnergyIncrease * Time.deltaTime);
+            flyingEnergyRadialProgressBar.UpdateAmount(flyingEnergyIncrease * Time.deltaTime);
+        }
 	}
 
 	void Die() {
@@ -64,14 +64,14 @@ public class BeeScript : MonoBehaviour {
 			if (flowerScript != null) {
 				flowerScript.takeNectar ();
 				nectarMeter += nectarIncrease;
-                //nectarRadialProgressBar.UpdateAmount(nectarIncrease);
+                nectarRadialProgressBar.UpdateAmount(nectarIncrease);
 
 				if (flowerScript.hasPollen ()) {
 					pollenMeter += pollenIncrease;
-                    //pollenRadialProgressBar.UpdateAmount(pollenIncrease);
+                    pollenRadialProgressBar.UpdateAmount(pollenIncrease);
 				} else {
 					pollenMeter -= pollenIncrease;
-                    //pollenRadialProgressBar.UpdateAmount(-pollenIncrease);
+                    pollenRadialProgressBar.UpdateAmount(-pollenIncrease);
 				}
 				Debug.Log ("Belly: " + bellyMeter);
 				Debug.Log ("Nectar: " + nectarMeter);
