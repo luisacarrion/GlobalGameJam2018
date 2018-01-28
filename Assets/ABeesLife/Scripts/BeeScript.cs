@@ -71,7 +71,12 @@ public class BeeScript : MonoBehaviour {
                     pollenRadialProgressBar.UpdateAmount(pollenIncrease);
 				} else {
 					pollenMeter -= pollenIncrease;
-                    pollenRadialProgressBar.UpdateAmount(-pollenIncrease);
+
+					if (pollenRadialProgressBar.GetCurrentAmount () > 0) {
+						pollenRadialProgressBar.UpdateAmount(-pollenIncrease);
+						pollinatedFlowersCounter++;
+					}
+                    
 				}
 				Debug.Log ("Belly: " + bellyMeter);
 				Debug.Log ("Nectar: " + nectarMeter);
