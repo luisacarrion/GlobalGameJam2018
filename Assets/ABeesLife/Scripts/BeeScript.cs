@@ -76,7 +76,7 @@ public class BeeScript : MonoBehaviour {
 					if (pollenRadialProgressBar.GetCurrentAmount () > 0) {
 						pollenRadialProgressBar.UpdateAmount(-pollenIncrease);
 						pollinatedFlowersCounter++;
-						txtPollinatedFlowersCounter.text = pollinatedFlowersCounter;
+						txtPollinatedFlowersCounter.text = "" + pollinatedFlowersCounter;
 					}
                     
 				}
