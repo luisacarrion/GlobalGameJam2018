@@ -66,8 +66,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
             if (!m_Jump)
             {
             m_Jump = CrossPlatformInputManager.GetButtonDown("Jump");
-			Debug.Log ("Presiono la tecla");
-            }
+			}
 
             if (!m_PreviouslyGrounded && m_CharacterController.isGrounded)
             {
@@ -118,8 +117,6 @@ namespace UnityStandardAssets.Characters.FirstPerson
 			// JUMP MECHANICS
 			if (m_Jump)
 			{
-				Debug.Log ("Agrego la fuerza");
-
 				m_MoveDir.y = m_JumpSpeed;
 				PlayJumpSound();
 				m_Jump = false;
