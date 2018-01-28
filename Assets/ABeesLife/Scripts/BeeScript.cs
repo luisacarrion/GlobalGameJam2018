@@ -9,7 +9,11 @@ public class BeeScript : MonoBehaviour {
     public RadialProgressBar bellyRadialProgressBar;
     public RadialProgressBar flyingEnergyRadialProgressBar;
 
-	private float nectarIncrease = 5;
+    private float nectarMeter;
+    private float pollenMeter;
+    private float bellyMeter;
+
+    private float nectarIncrease = 5;
     private float pollenIncrease = 10;
     private float flyingEnergyDecrease = -1;
     private float flyingEnergyIncrease = 0.8F;
@@ -37,12 +41,22 @@ public class BeeScript : MonoBehaviour {
 		if (other.CompareTag ("Nectar")) {
 			FlowerScript flowerScript = other.GetComponent<FlowerScript> ();
 			if (flowerScript != null) {
-				if (flowerScript.hasNectar ()) {
-					flowerScript.takeNectar ();
-                    nectarRadialProgressBar.UpdateAmount(nectarIncrease);
+				flowerScript.takeNectar ();
+				nectarMeter += nectarIncrease;
+                nectarRadialProgressBar.UpdateAmount(nectarIncrease);
+
+				if (flowerScript.hasPollen ()) {
+					pollenMeter += pollenIncrease;
                     pollenRadialProgressBar.UpdateAmount(pollenIncrease);
-                }
-			} else {
+				} else {
+					pollenMeter -= pollenIncrease;
+                    pollenRadialProgressBar.UpdateAmount(-pollenIncrease);
+				}
+				Debug.Log ("Belly: " + bellyMeter);
+				Debug.Log ("Nectar: " + nectarMeter);
+				Debug.Log ("Pollen: " + pollenMeter);
+            }
+            else {
 				Debug.Log ("FlowerScript not set to object with Nectar tag");
 			}
 		}
