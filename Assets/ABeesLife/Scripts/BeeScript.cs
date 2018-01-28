@@ -14,8 +14,11 @@ public class BeeScript : MonoBehaviour {
 	public Text txtDie;
 	public Text txtPollinatedFlowersCounter;
 	//public GameObject uiPic01;
-	public GameObject uiPic02;
-	public GameObject uiPic03;
+	public Image uiPic02;
+	public Image uiPic03;
+
+	public Sprite SpritePic02;
+	public Sprite SpritePic03;
 
 	public string dieOnGroundMessage = "Fuiste devorado por una araña gigantesca :(";
 
@@ -38,8 +41,8 @@ public class BeeScript : MonoBehaviour {
 	private bool isAlive = true;
 
 	private bool pic01Seen = true;
-	private bool pic02Seen = true;
-	private bool pic03Seen = true;
+	private bool pic02Seen = false;
+	private bool pic03Seen = false;
 
     
 
@@ -79,21 +82,19 @@ public class BeeScript : MonoBehaviour {
 
 		if (pic01Seen) {
 			//uiPic01.SetActive (true);
-		} else if (pic02Seen) {
-			uiPic02.SetActive (true);
-		} else if (pic03Seen) {
-			uiPic03.SetActive (true);
+		}
+		if (pic02Seen) {
+			//uiPic02.SetActive (true);
+			//uiPic02.overrideSprite =  (Sprite)Resources.Load("ABeesLife/Textures/pic01 house");
+			uiPic02.sprite = SpritePic02;
+		}
+		if (pic03Seen) {
+			//uiPic03.SetActive (true);
+			//uiPic03.overrideSprite =  (Sprite)Resources.Load("ABeesLife/Textures/pic01 house");
+			uiPic03.sprite = SpritePic03;
 		}
 
 		uiDie.SetActive (true);
-
-		if (pic01Seen) {
-			//uiPic01.SetActive (true);
-		} else if (pic02Seen) {
-			uiPic02.SetActive (true);
-		} else if (pic03Seen) {
-			uiPic03.SetActive (true);
-		}
 	}
 
 	void OnTriggerEnter(Collider other) {
