@@ -42,7 +42,7 @@ public class BeeScript : MonoBehaviour {
             flyingEnergyRadialProgressBar.UpdateAmount(flyingEnergyDecrease);
         } 
         else if (flyingEnergyRadialProgressBar.GetCurrentAmount() < 100) {
-            Debug.Log(flyingEnergyIncrease * Time.deltaTime);
+            //Debug.Log(flyingEnergyIncrease * Time.deltaTime);
             flyingEnergyRadialProgressBar.UpdateAmount(flyingEnergyIncrease * Time.deltaTime);
         }
 	}
@@ -80,9 +80,9 @@ public class BeeScript : MonoBehaviour {
 					}
                     
 				}
-				Debug.Log ("Belly: " + bellyMeter);
-				Debug.Log ("Nectar: " + nectarMeter);
-				Debug.Log ("Pollen: " + pollenMeter);
+				//Debug.Log ("Belly: " + bellyMeter);
+				//Debug.Log ("Nectar: " + nectarMeter);
+				//Debug.Log ("Pollen: " + pollenMeter);
             }
             else {
 				Debug.Log ("FlowerScript not set to object with Nectar tag");
