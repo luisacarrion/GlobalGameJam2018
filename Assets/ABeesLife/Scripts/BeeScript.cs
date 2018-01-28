@@ -130,7 +130,7 @@ public class BeeScript : MonoBehaviour {
 				}
 			} else if (other.CompareTag ("Respawn")) {
 				// ROGELIO: Fill belly to 100%
-			} else if (other.CompareTag ("Ground")) {
+			} else if (other.CompareTag ("Ground") && characterController.isGrounded) {
 				Die ();
                 PlayDeathSound ();
                 ShowEndScreen (dieOnGroundMessage);

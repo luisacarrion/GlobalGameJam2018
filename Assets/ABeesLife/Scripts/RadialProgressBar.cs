@@ -25,8 +25,11 @@ public class RadialProgressBar : MonoBehaviour {
         ChargingBar.GetComponent<Image>().fillAmount = currentAmount / 100;
     }
 
-    public float GetCurrentAmount()
-    {
+    public float GetCurrentAmount() {
         return currentAmount;
+    }
+
+    public void ResetAmount() {
+
     }
 }
