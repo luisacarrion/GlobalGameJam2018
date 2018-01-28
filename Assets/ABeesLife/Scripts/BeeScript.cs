@@ -4,27 +4,37 @@ using UnityEngine;
 
 public class BeeScript : MonoBehaviour {
 
-	public float bellyMeter = 100;
-	public float nectarMeter = 0;
-	public float pollenMeter = 0;
+    public RadialProgressBar nectarRadialProgressBar;
+    public RadialProgressBar pollenRadialProgressBar;
+    public RadialProgressBar bellyRadialProgressBar;
+    public RadialProgressBar flyingEnergyRadialProgressBar;
 
-	public float bellyDecrease = 1;
-	public float nectarIncrease = 5;
-	public float pollenIncrease = 10;
+    private float nectarMeter;
+    private float pollenMeter;
+    private float bellyMeter;
 
-	// Use this for initialization
-	void Start () {
-		Debug.Log ("Belly: " + bellyMeter);
-		Debug.Log ("Nectar: " + nectarMeter);
-		Debug.Log ("Pollen: " + pollenMeter);
+    private float nectarIncrease = 5;
+    private float pollenIncrease = 10;
+    private float flyingEnergyDecrease = -1;
+    private float flyingEnergyIncrease = 0.8F;
+    private float bellyDecrease = -0.0833333F; //(100 / (20 * 60))
+
+    // Use this for initialization
+    void Start () {
+
 	}
 	
 	// Update is called once per frame
 	void Update () {
+        bellyRadialProgressBar.UpdateAmount(bellyDecrease * Time.deltaTime);
 
 		if (Input.GetButtonDown("Jump")) {
-			bellyMeter -= bellyDecrease;
-		}
+            flyingEnergyRadialProgressBar.UpdateAmount(flyingEnergyDecrease);
+        } 
+        else if (flyingEnergyRadialProgressBar.GetCurrentAmount() < 100) {
+            Debug.Log(flyingEnergyIncrease * Time.deltaTime);
+            flyingEnergyRadialProgressBar.UpdateAmount(flyingEnergyIncrease * Time.deltaTime);
+        }
 	}
 
 	void OnTriggerEnter(Collider other) {
@@ -33,16 +43,20 @@ public class BeeScript : MonoBehaviour {
 			if (flowerScript != null) {
 				flowerScript.takeNectar ();
 				nectarMeter += nectarIncrease;
+                nectarRadialProgressBar.UpdateAmount(nectarIncrease);
 
 				if (flowerScript.hasPollen ()) {
 					pollenMeter += pollenIncrease;
+                    pollenRadialProgressBar.UpdateAmount(pollenIncrease);
 				} else {
 					pollenMeter -= pollenIncrease;
+                    pollenRadialProgressBar.UpdateAmount(-pollenIncrease);
 				}
 				Debug.Log ("Belly: " + bellyMeter);
 				Debug.Log ("Nectar: " + nectarMeter);
 				Debug.Log ("Pollen: " + pollenMeter);
-			} else {
+            }
+            else {
 				Debug.Log ("FlowerScript not set to object with Nectar tag");
 			}
 		}
