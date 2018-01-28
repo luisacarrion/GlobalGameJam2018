@@ -111,7 +111,11 @@ public class BeeScript : MonoBehaviour {
 			} else if (other.CompareTag ("Ground")) {
 				Die ();
 				ShowEndScreen (dieOnGroundMessage);
-			}
+			} else if (other.CompareTag ("Pic02")) {
+				pic02Seen = true;
+			} else if (other.CompareTag ("Pic03")) {
+				pic03Seen = true;
+			} 
 		}
 	}
 }
