@@ -129,7 +129,7 @@ public class BeeScript : MonoBehaviour {
 					Debug.Log ("FlowerScript not set to object with Nectar tag");
 				}
 			} else if (other.CompareTag ("Respawn")) {
-				// ROGELIO: Fill belly to 100%
+                bellyRadialProgressBar.ResetAmount();
 			} else if (other.CompareTag ("Ground") && characterController.isGrounded) {
 				Die ();
                 PlayDeathSound ();
