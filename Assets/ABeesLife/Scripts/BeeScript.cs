@@ -13,9 +13,9 @@ public class BeeScript : MonoBehaviour {
 	public GameObject uiDie;
 	public Text txtDie;
 	public Text txtPollinatedFlowersCounter;
-	public Image uiPic01;
-	public Image uiPic02;
-	public Image uiPic03;
+	public GameObject uiPic01;
+	public GameObject uiPic02;
+	public GameObject uiPic03;
 
 	public string dieOnGroundMessage = "Fuiste devorado por una araña gigantesca :(";
 
@@ -83,11 +83,11 @@ public class BeeScript : MonoBehaviour {
 		uiDie.SetActive (true);
 
 		if (pic01Seen) {
-			//uiPic01.SetActive (true);
+			uiPic01.SetActive (true);
 		} else if (pic02Seen) {
-			//uiPic02.SetActive (true);
+			uiPic02.SetActive (true);
 		} else if (pic03Seen) {
-			//uiPic03.SetActive (true);
+			uiPic03.SetActive (true);
 		}
 	}
 
