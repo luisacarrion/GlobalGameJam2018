@@ -20,8 +20,9 @@ public class BeeScript : MonoBehaviour {
 	public string dieOnGroundMessage = "Fuiste devorado por una araña gigantesca :(";
 
     [SerializeField] private AudioSource worldAudioSource;
-    [SerializeField] private AudioClip newWorldSound;  // the sound played when character spawns
     [SerializeField] private AudioClip deathSound;  // the sound played when character touches the ground
+
+    private CharacterController characterController;
 
     private float nectarMeter;
     private float pollenMeter;
@@ -30,7 +31,7 @@ public class BeeScript : MonoBehaviour {
     private float nectarIncrease = 5;
     private float pollenIncrease = 10;
     private float flyingEnergyDecrease = -1;
-    private float flyingEnergyIncrease = 0.8F;
+    private float flyingEnergyIncrease = 5;
     private float bellyDecrease = -0.0833333F; //(100 / (20 * 60))
 
 	private int pollinatedFlowersCounter = 0;
@@ -44,8 +45,8 @@ public class BeeScript : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-		txtPollinatedFlowersCounter.text = "" + pollinatedFlowersCounter;
-        PlayNewWorldSound();
+        characterController = GetComponent<CharacterController>();
+        txtPollinatedFlowersCounter.text = "" + pollinatedFlowersCounter;
     }
 	
 	// Update is called once per frame
@@ -56,17 +57,12 @@ public class BeeScript : MonoBehaviour {
 			if (Input.GetButtonDown("Jump")) {
 				flyingEnergyRadialProgressBar.UpdateAmount(flyingEnergyDecrease);
 			} 
-			else if (flyingEnergyRadialProgressBar.GetCurrentAmount() < 100) {
+			else if (flyingEnergyRadialProgressBar.GetCurrentAmount() < 100 && characterController.isGrounded) {
 				//Debug.Log(flyingEnergyIncrease * Time.deltaTime);
 				flyingEnergyRadialProgressBar.UpdateAmount(flyingEnergyIncrease * Time.deltaTime);
 			}
 		}
 	}
-
-    void PlayNewWorldSound() {
-        worldAudioSource.clip = newWorldSound;
-        worldAudioSource.Play();
-    }
 
     void PlayDeathSound() {
         worldAudioSource.clip = deathSound;
