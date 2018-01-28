@@ -31,7 +31,7 @@ public class BeeScript : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-
+		txtPollinatedFlowersCounter.text = "" + pollinatedFlowersCounter;
 	}
 	
 	// Update is called once per frame
